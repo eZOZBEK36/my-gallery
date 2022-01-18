@@ -1,0 +1,174 @@
+@use 'sass:math';
+
+@import 'fonts';
+@import 'others';
+
+$bgColor: #fff;
+$color: #4e5150;
+$lightGrayColor: #a9a9a9;
+
+$minWidth: 375;
+$containerWidth: 960;
+$containerPadding: 24;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+img {
+	max-width: 100%;
+	&::selection {
+		display: none;
+	}
+}
+ul {
+	list-style: none;
+}
+
+body {
+	color: $color;
+	font-weight: 600;
+	min-height: 100vh;
+	background-color: $bgColor;
+	font-family: 'Montserrat', serif;
+}
+
+[class*='__container'] {
+	margin: 0 auto;
+	box-sizing: content-box;
+	padding: 0 rem(math.div($containerPadding, 2));
+	max-width: rem($containerWidth - $containerPadding);
+}
+
+.section-user {
+	@include adaptiv-value('padding-top', 60, 30);
+	@include adaptiv-value('padding-bottom', 60, 30);
+	&__container {
+		display: flex;
+		text-align: center;
+		align-items: center;
+		flex-direction: column;
+	}
+	&__image {
+		height: rem(156);
+		overflow: hidden;
+		flex: 0 0 rem(156);
+		border-radius: rem(16);
+		@include adaptiv-value('height', 156, 100);
+		@include adaptiv-value('margin-bottom', 16, 12);
+		flex: 0 0 rem(156);
+		@media (max-width: em($containerWidth)) {
+			flex: 0 0
+				calc(
+					rem(100) + (156 - 100) *
+						((100vw - rem($minWidth)) / ($containerWidth - $minWidth))
+				);
+		}
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&__name {
+		line-height: percent(29, 24);
+		@include adaptiv-value('font-size', 24, 14);
+		@include adaptiv-value('margin-bottom', 8, 4);
+	}
+	&__loc {
+		color: $lightGrayColor;
+		line-height: percent(17, 14);
+		@include adaptiv-value('font-size', 14, 12);
+	}
+	&__statistics {
+		display: flex;
+		justify-content: center;
+		@include adaptiv-value('column-gap', 24, 12);
+		@include adaptiv-value('padding-top', 24, 12);
+	}
+
+	&__item {
+		cursor: pointer;
+		border-radius: rem(12);
+		background-color: #e5e5e5;
+		@include adaptiv-value('padding-top', 15, 10);
+		@include adaptiv-value('padding-bottom', 15, 10);
+		flex: 0 0 rem(100);
+		@media (max-width: em($containerWidth)) {
+			flex: 0 0
+				calc(
+					rem(78) + (100 - 78) *
+						((100vw - rem($minWidth)) / ($containerWidth - $minWidth))
+				);
+		}
+	}
+	&__num {
+		line-height: percent(22, 18);
+		@include adaptiv-value('font-size', 18, 12);
+		&:not(:last-child) {
+			margin-bottom: em(3);
+		}
+	}
+	&__num-title {
+		color: #bdbdbd;
+		line-height: percent(17, 14);
+		@include adaptiv-value('font-size', 14, 12);
+	}
+}
+
+.section-gallery {
+	@include adaptiv-value('padding-bottom', 115, 25);
+	&__container {
+		display: grid;
+		grid-template-rows: auto auto auto;
+		grid-template-columns: 1fr 1fr 1fr;
+		@include adaptiv-value('gap', 30, 15);
+	}
+	&__item {
+		height: 100%;
+		img {
+			height: 100%;
+			border-radius: rem(12);
+			filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.15));
+		}
+		&_2 {
+			grid-column-end: 4;
+			grid-column-start: 2;
+		}
+		&_3 {
+			grid-row-end: 3;
+			grid-row-start: 2;
+			grid-column-end: 3;
+			grid-column-start: 1;
+		}
+		&_4 {
+			height: 100%;
+			img {
+				height: 100%;
+			}
+			grid-row-end: 4;
+			grid-row-start: 2;
+		}
+	}
+}
+
+.footer {
+	padding: rem(25) 0;
+	text-align: center;
+	&__link {
+		color: #bdbdbd;
+		font-weight: 500;
+		font-size: rem(14);
+		text-decoration: none;
+		line-height: percent(17, 14);
+		@media (any-hover: hover) {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		span {
+			font-weight: 700;
+		}
+	}
+}
